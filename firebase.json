@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "test/**",
+      "bower.json",
+      "CONTRIBUTING.md",
+      "demo.html",
+      "Gruntfile.js",
+      "LICENSE",
+      "package.json",
+      "README.md",
+      "firebase.json",
+      "css/theme/source/**",
+      "css/theme/template/**",
+      "**/.*"
+    ]
+  }
+}

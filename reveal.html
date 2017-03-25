@@ -34,13 +34,17 @@
 
 		<script>
 			var slidesDiv = document.getElementById("slides");
-			console.log("slidesDiv", slidesDiv);
 
 			function receiveMessage(event) {
 				console.log(event);
+				event.stopPropagation();
+				event.preventDefault();
 				if (event.origin !== "https://kobble.io")
 					return;
-				slidesDiv.innerHtml = md.render(event.data);
+				console.log("converting: " + event.data.msg);
+				var converted = md.render(event.data.msg);
+				console.log(converted);
+				slidesDiv.innerHTML = converted;
 				Reveal.sync();
 				Reveal.slide(0);
 			}
@@ -64,8 +68,6 @@
 			  }
 			}
 			var md = window.markdownit(mdOpts);
-			console.log("markdown-it");
-			console.log(md);
 			md.use(markdownitContainer, "slide", {
 			  render: function (tokens, idx) {
 			    if (tokens[idx].nesting === 1) {
@@ -77,11 +79,10 @@
 			});
 			md.use(markdownItAttrs);
 
-			var test = "::: slide\nSlide 1 converted\n:::\n::: slide\nSlide 2 converted\n:::\n";
-			var convert = md.render(test);
-			console.log(convert);
-
 			setTimeout(function() {
+				var test = "::: slide\nSlide 1 converted\n:::\n::: slide\nSlide 2 converted\n:::\n";
+				var convert = md.render(test);
+				console.log(convert);
 				slidesDiv.innerHTML = convert;
 				Reveal.sync();
 				Reveal.slide(0);
@@ -106,6 +107,7 @@
 					hideMissingTitles: false,
 					markers: false,
 					custom: false,
+					keyboard: false,
 					themes: [
 						{ name: 'Black', theme: 'css/theme/black.css' },
 						{ name: 'Beige', theme: 'css/theme/beige.css' },

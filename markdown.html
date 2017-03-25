@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Kobble Viewer</title>
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="markdown">
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/markdown-it/markdown-it.js"></script>
+		<script src="js/markdown-it/markdown-it-container.js"></script>
+		<script src="js/markdown-it/markdown-it-attrs.browser.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+
+		<script>
+			var topDiv = document.getElementById("markdown");
+
+			function receiveMessage(event) {
+				console.log(event);
+				if (event.origin !== "https://kobble.io")
+					return;
+				topDiv.innerHtml = md.render(event.data.msg);
+			}
+			window.addEventListener("message", receiveMessage, false);
+
+			var mdOpts = {
+			  html:         false,        // Enable HTML tags in source
+			  xhtmlOut:     false,        // Use '/' to close single tags (<br />).
+			  breaks:       false,        // Convert '\n' in paragraphs into <br>
+			  langPrefix:   'language-',  // CSS language prefix for fenced blocks. Can be
+			  linkify:      false,        // Autoconvert URL-like text to links
+			  typographer:  false,
+			  quotes:				 '“”‘’',
+				highlight: 		function (str, lang) {
+			    if (lang && hljs.getLanguage(lang)) {
+			      try {
+			        return hljs.highlight(lang, str).value;
+			      } catch (__) {}
+			    }
+  				return '';
+			  }
+			}
+			var md = window.markdownit(mdOpts);
+			md.use(markdownitContainer, "slide", {
+			  render: function (tokens, idx) {
+			    if (tokens[idx].nesting === 1) {
+			      return '<section>\n';
+			    } else {
+			      return '</section>\n';
+			    }
+	  		}
+			});
+			md.use(markdownItAttrs);
+
+			setTimeout(function() {
+				var test = "::: slide\nSlide 1 converted\n:::\n::: slide\nSlide 2 converted\n:::\n";
+				var convert = md.render(test);
+				console.log(convert);
+				topDiv.innerHTML = convert;
+			}, 5000)
+
+		</script>
+	</body>
+</html>
