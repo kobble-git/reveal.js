@@ -20,8 +20,7 @@
 	<body>
 		<div class="reveal">
 			<div id="slides" class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section></section>
 			</div>
 		</div>
 
@@ -36,15 +35,12 @@
 			var slidesDiv = document.getElementById("slides");
 
 			function receiveMessage(event) {
-				console.log(event);
-				event.stopPropagation();
-				event.preventDefault();
 				if (event.origin !== "https://kobble.io")
 					return;
 				console.log("converting: " + event.data.msg);
-				var converted = md.render(event.data.msg);
-				console.log(converted);
-				slidesDiv.innerHTML = converted;
+				var content = md.render(event.data.msg);
+				console.log(content);
+				slidesDiv.innerHTML = content;
 				Reveal.sync();
 				Reveal.slide(0);
 			}
@@ -78,15 +74,6 @@
 	  		}
 			});
 			md.use(markdownItAttrs);
-
-			setTimeout(function() {
-				var test = "::: slide\nSlide 1 converted\n:::\n::: slide\nSlide 2 converted\n:::\n";
-				var convert = md.render(test);
-				console.log(convert);
-				slidesDiv.innerHTML = convert;
-				Reveal.sync();
-				Reveal.slide(0);
-			}, 5000)
 
 			Reveal.initialize({
 				history: false,

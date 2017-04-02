@@ -16,7 +16,7 @@
 		</script>
 	</head>
 	<body>
-		<div class="markdown">
+		<div id="markdown">
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
@@ -32,7 +32,7 @@
 				console.log(event);
 				if (event.origin !== "https://kobble.io")
 					return;
-				topDiv.innerHtml = md.render(event.data.msg);
+				topDiv.innerHTML = md.render(event.data.msg);
 			}
 			window.addEventListener("message", receiveMessage, false);
 
@@ -64,13 +64,6 @@
 	  		}
 			});
 			md.use(markdownItAttrs);
-
-			setTimeout(function() {
-				var test = "::: slide\nSlide 1 converted\n:::\n::: slide\nSlide 2 converted\n:::\n";
-				var convert = md.render(test);
-				console.log(convert);
-				topDiv.innerHTML = convert;
-			}, 5000)
 
 		</script>
 	</body>
