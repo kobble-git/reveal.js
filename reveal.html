@@ -37,9 +37,7 @@
 			function receiveMessage(event) {
 				if (event.origin !== "https://kobble.io")
 					return;
-				console.log("converting: " + event.data.msg);
 				var content = md.render(event.data.msg);
-				console.log(content);
 				slidesDiv.innerHTML = content;
 				Reveal.sync();
 				Reveal.slide(0);

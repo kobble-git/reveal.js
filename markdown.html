@@ -29,7 +29,6 @@
 			var topDiv = document.getElementById("markdown");
 
 			function receiveMessage(event) {
-				console.log(event);
 				if (event.origin !== "https://kobble.io")
 					return;
 				topDiv.innerHTML = md.render(event.data.msg);
