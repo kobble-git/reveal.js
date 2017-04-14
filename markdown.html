@@ -23,6 +23,7 @@
 		<script src="js/markdown-it/markdown-it.js"></script>
 		<script src="js/markdown-it/markdown-it-container.js"></script>
 		<script src="js/markdown-it/markdown-it-attrs.browser.js"></script>
+		<script src="js/markdown-it/markdown-it-link-attributes.min.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 
 		<script>
@@ -63,6 +64,10 @@
 	  		}
 			});
 			md.use(markdownItAttrs);
+			md.use(markdownitLinkAttributes, {
+				target: '_blank',
+				rel: 'noopener'
+			});
 
 		</script>
 	</body>
