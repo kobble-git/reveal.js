@@ -9,6 +9,14 @@
 		<link rel="stylesheet" href="css/theme/black.css" id="theme">
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/markdown-it/markdown-it.js"></script>
+		<script src="js/markdown-it/markdown-it-container.js"></script>
+		<script src="js/markdown-it/markdown-it-attrs.browser.js"></script>
+		<script src="js/markdown-it/markdown-it-link-attributes.min.js"></script>
+		<script src="js/markdown-it/markdown-it-emoji.min.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
 		<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
@@ -24,20 +32,13 @@
 			</div>
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
-		<script src="js/markdown-it/markdown-it.js"></script>
-		<script src="js/markdown-it/markdown-it-container.js"></script>
-		<script src="js/markdown-it/markdown-it-attrs.browser.js"></script>
-		<script src="js/markdown-it/markdown-it-link-attributes.min.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-
 		<script>
-			var slidesDiv = document.getElementById("slides");
 
 			function receiveMessage(event) {
-				if (event.origin !== "https://kobble.io")
+				if (event.origin !== "https://kobble.io") {
 					return;
+				}
+				var slidesDiv = document.getElementById("slides");
 				var content = md.render(event.data.msg);
 				slidesDiv.innerHTML = content;
 				Reveal.sync();
@@ -73,6 +74,7 @@
 	  		}
 			});
 			md.use(markdownItAttrs);
+			md.use(markdownitEmoji);
 			md.use(markdownitLinkAttributes, {
   			target: '_blank',
   			rel: 'noopener'
