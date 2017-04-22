@@ -7,8 +7,11 @@ body {
    font-size: 13px;
    line-height: 18px;
    color: #eceff1;
-   background-color: transparent; /*#1f282d;*/
+   background-color: #1f282d; /* transparent doesn't work with fullscreen */
    margin: 10px 13px 10px 13px;
+}
+body:fullscreen {
+  background-color: #1f282d;
 }
 table {
 	 margin: 10px 0 15px 0;
