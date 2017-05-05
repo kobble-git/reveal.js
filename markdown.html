@@ -33,7 +33,7 @@
 			var topDiv = document.getElementById("markdown");
 
 			function receiveMessage(event) {
-				if (event.origin !== "https://kobble.io")
+				if (event.origin !== "https://kobble.io" && event.origin !== "https://kobble-dev.firebaseapp.com")
 					return;
 				topDiv.innerHTML = md.render(event.data.msg);
 			}

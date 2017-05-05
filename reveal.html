@@ -35,7 +35,7 @@
 		<script>
 
 			function receiveMessage(event) {
-				if (event.origin !== "https://kobble.io") {
+				if (event.origin !== "https://kobble.io" && event.origin !== "https://kobble-dev.firebaseapp.com") {
 					return;
 				}
 				var slidesDiv = document.getElementById("slides");
