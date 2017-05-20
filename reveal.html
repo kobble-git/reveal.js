@@ -16,6 +16,7 @@
 		<script src="js/markdown-it/markdown-it-attrs.browser.js"></script>
 		<script src="js/markdown-it/markdown-it-link-attributes.min.js"></script>
 		<script src="js/markdown-it/markdown-it-emoji.min.js"></script>
+		<script src="js/markdown-it/markdown-it-video.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 		<script>
 			var link = document.createElement( 'link' );
@@ -33,11 +34,16 @@
 		</div>
 
 		<script>
+			var origins = [
+				"https://kobble.io",
+				"https://catholic.place",
+				"https://kobble-dev.firebaseapp.com"
+			]
 
 			function receiveMessage(event) {
-				if (event.origin !== "https://kobble.io" && event.origin !== "https://kobble-dev.firebaseapp.com") {
+				if (origins.indexOf(event.origin) < 0)
 					return;
-				}
+
 				var slidesDiv = document.getElementById("slides");
 				var content = md.render(event.data.msg);
 				slidesDiv.innerHTML = content;
@@ -75,6 +81,7 @@
 			});
 			md.use(markdownItAttrs);
 			md.use(markdownitEmoji);
+			md.use(markdownitVideo);
 			md.use(markdownitLinkAttributes, {
   			target: '_blank',
   			rel: 'noopener'

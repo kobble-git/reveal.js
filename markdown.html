@@ -8,6 +8,9 @@
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 		<link rel="stylesheet" href="css/markdown-dark.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cabin|Raleway" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
 		<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
@@ -27,13 +30,19 @@
 		<script src="js/markdown-it/markdown-it-link-attributes.min.js"></script>
 		<script src="js/markdown-it/markdown-it-emoji.min.js"></script>
 		<script src="js/markdown-it/markdown-it-deflist.min.js"></script>
+		<script src="js/markdown-it/markdown-it-video.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
 
 		<script>
 			var topDiv = document.getElementById("markdown");
 
+			var origins = [
+				"https://kobble.io",
+				"https://catholic.place",
+				"https://kobble-dev.firebaseapp.com"
+			]
 			function receiveMessage(event) {
-				if (event.origin !== "https://kobble.io" && event.origin !== "https://kobble-dev.firebaseapp.com")
+				if (origins.indexOf(event.origin) < 0)
 					return;
 				topDiv.innerHTML = md.render(event.data.msg);
 			}
@@ -69,6 +78,7 @@
 			md.use(markdownItAttrs);
 			md.use(markdownitEmoji);
 			md.use(markdownitDeflist);
+			md.use(markdownitVideo);
 			md.use(markdownitLinkAttributes, {
 				target: '_blank',
 				rel: 'noopener'
